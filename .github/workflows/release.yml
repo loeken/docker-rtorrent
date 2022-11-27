@@ -4,13 +4,14 @@ on:
     branches: [ main ]
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: bullseye
     steps:
       - name: manual
         run: |
           git clone https://github.com/jesec/rtorrent
           cd rtorrent
           git checkout v0.9.8-r15
+          git branch
           head -n 25 src/core/view.cc
           sed -i 's/python2/pythonispython3/g' Dockerfile
           docker build --no-cache -t loeken/testing .
