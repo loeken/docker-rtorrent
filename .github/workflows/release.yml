@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 jobs:
   release:
-    runs-on: macos-12
+    runs-on: ubuntu-18.04
     steps:
       - name: manual
         run: |
@@ -12,7 +12,6 @@ jobs:
           cd rtorrent
           git checkout v0.9.8-r15
           git branch
-          head -n 25 src/core/view.cc
           sed -i 's/python2/pythonispython3/g' Dockerfile
           docker build --no-cache -t loeken/testing .
       # - name: Check out my other private repo
