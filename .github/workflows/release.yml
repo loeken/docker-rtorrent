@@ -29,3 +29,4 @@ jobs:
         with:
           push: true
           tags: loeken/rtorrent:v0.9.8-r15
+          context: .
