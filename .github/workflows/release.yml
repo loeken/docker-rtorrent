@@ -12,6 +12,7 @@ jobs:
           cd rtorrent
           git checkout v0.9.8-r15
           sed -i 's/python2/pythonispython3/g' Dockerfile
+          sed 's/: std::unary_function<char, bool> {/{/g' src/rpc/parse_commands.cc
           docker build --no-cache -t loeken/testing .
       # - name: Check out my other private repo
       #   uses: actions/checkout@master
