@@ -10,7 +10,6 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: jesec/rtorrent
-          ref: refs/tags/v0.9.8-r14
       - name: patch dockerfile
         run: sed -i 's/python2/pythonispython3/g' Dockerfile
       - name: ls
@@ -28,5 +27,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: loeken/rtorrent:v0.9.8-r14
+          tags: loeken/rtorrent:testing
           context: .
