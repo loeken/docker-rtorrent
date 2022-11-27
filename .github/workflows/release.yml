@@ -13,15 +13,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: check out rtorrent
-        uses: actions/checkout@master
-        with:
-          repository: jesec/rtorrent
-          ref: refs/tags/v0.9.8-r15
-
       - name: patch dockerfile
         run: |
           git clone https://github.com/jesec/rtorrent
           cd rtorrent
+          git checkout v0.9.8-r15
           sed -i 's/python2/pythonispython3/g' Dockerfile
           docker build -t loeken/rtorrent:testing .
