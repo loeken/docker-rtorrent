@@ -10,6 +10,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: jesec/rtorrent
+          ref: refs/tags/v0.9.8-r13
       - name: patch dockerfile
         run: sed -i 's/python2/pythonispython3/g' Dockerfile
       - name: ls
