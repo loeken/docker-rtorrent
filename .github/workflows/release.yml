@@ -11,6 +11,7 @@ jobs:
           git clone https://github.com/jesec/rtorrent
           cd rtorrent
           git checkout v0.9.8-r15
+          head -n 25 src/core/view.cc
           sed -i 's/python2/pythonispython3/g' Dockerfile
           docker build --no-cache -t loeken/testing .
       # - name: Check out my other private repo
