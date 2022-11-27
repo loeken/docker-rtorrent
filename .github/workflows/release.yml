@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 jobs:
   release:
-    runs-on: bullseye
+    runs-on: alpine-latest
     steps:
       - name: manual
         run: |
