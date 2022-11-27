@@ -21,7 +21,7 @@ jobs:
 
       - name: patch dockerfile
         run: |
+          git clone https://github.com/jesec/rtorrent
+          cd rtorrent
           sed -i 's/python2/pythonispython3/g' Dockerfile
-
-      - name: Build and push
-        run: docker build -t loeken/rtorrent:testing .
+          docker build -t loeken/rtorrent:testing .
