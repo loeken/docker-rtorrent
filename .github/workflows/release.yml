@@ -22,11 +22,14 @@ jobs:
           repository: jesec/rtorrent
           ref: v0.9.8-r15
           path: rtorrent
-
-      - name: patch dockerfile
-        run: sed -i 's/python2/pythonispython3/g' rtorrent/Dockerfile
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          repository: loeken/rtorrent
+          path: me
       - name: ls
-        run: cat rtorrent/Dockerfile
+        run: cp me/Dockerfile rtorrent/Dockerfile
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
