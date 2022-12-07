@@ -1,4 +1,4 @@
-ARG ALPINE_IMAGE=alpine
+ARG ALPINE_IMAGE=alpine-3.16
 
 FROM ${ALPINE_IMAGE} as build
 
