@@ -14,6 +14,7 @@ jobs:
       #     git checkout v0.9.8-r15
       #     sed -i 's/python2/pythonispython3/g' Dockerfile
       #     docker build --no-cache -t loeken/testing .
+
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
@@ -22,9 +23,9 @@ jobs:
           path: rtorrent
 
       - name: patch dockerfile
-        run: sed -i 's/python2/pythonispython3/g' Dockerfile
+        run: sed -i 's/python2/pythonispython3/g' rtorrent/Dockerfile
       - name: ls
-        run: cat Dockerfile
+        run: cat rtorrent/Dockerfile
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
