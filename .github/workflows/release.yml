@@ -25,7 +25,7 @@ jobs:
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
-          repository: loeken/rtorrent
+          repository: loeken/docker-rtorrent
           path: me
       - name: ls
         run: cp me/Dockerfile rtorrent/Dockerfile
