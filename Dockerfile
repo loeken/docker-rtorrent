@@ -27,11 +27,12 @@ COPY . ./
 # RUN git clone https://github.com/jesec/rtorrent .
 
 # Set architecture for .deb package
-RUN if [[ `uname -m` == "aarch64" ]]; \
-    then sed -i 's/architecture = \"all\"/architecture = \"arm64\"/' BUILD.bazel; \
-    elif [[ `uname -m` == "x86_64" ]]; \
-    then sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel; \
-    fi
+# RUN if [[ `uname -m` == "aarch64" ]]; \
+#     then sed -i 's/architecture = \"all\"/architecture = \"arm64\"/' BUILD.bazel; \
+#     elif [[ `uname -m` == "x86_64" ]]; \
+#     then sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel; \
+#     fi
+RUN  sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel;
 
 # Build rTorrent packages
 RUN bazel build rtorrent-deb --features=fully_static_link --verbose_failures
