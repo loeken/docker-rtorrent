@@ -18,8 +18,9 @@ jobs:
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
+          fetch-depth: 0
           repository: jesec/rtorrent
-          ref: refs/tags/v0.9.8-r15
+          ref: v0.9.8-r15
           path: rtorrent
 
       - name: patch dockerfile
