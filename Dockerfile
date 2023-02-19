@@ -1,4 +1,4 @@
-ARG ALPINE_IMAGE=alpine-3.16
+ARG ALPINE_IMAGE=alpine:3.17
 
 FROM ${ALPINE_IMAGE} as build
 
@@ -20,8 +20,10 @@ RUN apk --no-cache add \
     -Xhttps://dl-cdn.alpinelinux.org/alpine/edge/testing \
     bazel
 
+RUN apk add gcc
 # Checkout rTorrent sources from current directory
-COPY . ./
+#COPY rtorrent ./
+COPY . .
 
 # # Checkout rTorrent sources from Github repository
 # RUN git clone https://github.com/jesec/rtorrent .
@@ -32,7 +34,8 @@ COPY . ./
 #     elif [[ `uname -m` == "x86_64" ]]; \
 #     then sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel; \
 #     fi
-RUN  sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel;
+RUN UNAME=`uname -m` && echo $UNAME
+RUN sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel;
 
 # Build rTorrent packages
 RUN bazel build rtorrent-deb --features=fully_static_link --verbose_failures
