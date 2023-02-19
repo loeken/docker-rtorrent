@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
 
       # - name: manual
@@ -15,33 +15,42 @@ jobs:
       #     sed -i 's/python2/pythonispython3/g' Dockerfile
       #     docker build --no-cache -t loeken/testing .
 
-      - name: Check out my other private repo
+      - name: Check out repo
         uses: actions/checkout@master
         with:
-          fetch-depth: 0
+          #fetch-depth: 0
           repository: jesec/rtorrent
-          ref: v0.9.8-r15
+          ref: v0.9.8-r16
           path: rtorrent
-      - name: Check out my other private repo
+      - name: Check out repo
         uses: actions/checkout@master
         with:
           repository: loeken/docker-rtorrent
           path: me
       - name: ls
         run: cp me/Dockerfile rtorrent/Dockerfile
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v2
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          # push: true
+          tags: loeken/rtorrent:v0.9.8-r15
+          context: ./rtorrent
+          no-cache: true
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
-        uses: docker/build-push-action@v3
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          push: true
-          tags: loeken/rtorrent:v0.9.8-r15
-          context: ./rtorrent
-          no-cache: true
+          image-ref: loeken/rtorrent:rtorrent:v0.9.8-r15
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
