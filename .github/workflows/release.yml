@@ -14,7 +14,11 @@ jobs:
       #     git checkout v0.9.8-r15
       #     sed -i 's/python2/pythonispython3/g' Dockerfile
       #     docker build --no-cache -t loeken/testing .
-
+      - name: Get version number
+        run: |
+          ls -la
+          VERSION=$(cat version.yaml | grep 'version' | cut -d ' ' -f4)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Check out repo
         uses: actions/checkout@master
         with:
